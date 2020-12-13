@@ -29,6 +29,7 @@ class MLAlgorithm(models.Model):
         created_at: The date when MLAlgorithm was added.
         parent_endpoint: The reference to the Endpoint.
     """
+
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=1000)
     code = models.CharField(max_length=50000)
@@ -37,8 +38,9 @@ class MLAlgorithm(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     parent_endpoint = models.ForeignKey(Endpoint, on_delete=models.CASCADE)
 
+
 class MLAlgorithmStatus(models.Model):
-    '''
+    """
     The MLAlgorithmStatus represent status of the MLAlgorithm which can change during the time.
 
     Attributes:
@@ -47,15 +49,17 @@ class MLAlgorithmStatus(models.Model):
         created_by: The name of creator.
         created_at: The date of status creation.
         parent_mlalgorithm: The reference to corresponding MLAlgorithm.
-    '''
+    """
+
     status = models.CharField(max_length=128)
     active = models.BooleanField()
     created_by = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     parent_mlalgorithm = models.ForeignKey(MLAlgorithm, on_delete=models.CASCADE)
 
+
 class MLRequest(models.Model):
-    '''
+    """
     Attributes:
         input_data: The input data to ML algorithm in JSON format.
         full_response: The response of the ML algorithm.
@@ -63,11 +67,11 @@ class MLRequest(models.Model):
         feedback: The feedback about the response in JSON format.
         created_at: The date when request was created.
         parent_mlalgorithm: The reference to MLAlgorithm used to compute response.
-    '''
+    """
+
     input_data = models.CharField(max_length=10000)
     full_response = models.CharField(max_length=10000)
     response = models.CharField(max_length=10000)
     feedback = models.CharField(max_length=10000, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     parent_mlalgorithm = models.ForeignKey(MLAlgorithm, on_delete=models.CASCADE)
-    
